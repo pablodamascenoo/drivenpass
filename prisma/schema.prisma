@@ -10,9 +10,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model User{
-  id Int @id @default(autoincrement())
-  email String @unique
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
   password String
+
+  @@map("users")
+
+  credentials Credential[]
+  wifis Wifi[]
+  cards Card[]
+  safetyNotes SafetyNote[]
+}
+
+model Credential {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  label String
+  password String
+  url String
+  username String
+
+  @@unique([userId, label])
+  @@map("credentials")
+}
+
+model Wifi {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  title String
+  name String
+
+  @@map("wifis")
+}
+
+model Card {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  name String
+  number String
+  cvc String
+  type CardType
+  expDate String
+  password String
+  isVirtual Boolean
+
+  @@unique([name, userId])
+  @@map("cards")
+}
+
+model SafetyNote{
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  title String
+  note String
+
+  @@unique([userId, title])
+  @@map("safetyNotes")
+}
+
+enum CardType{
+  credito
+  debito
+  ambos
 }

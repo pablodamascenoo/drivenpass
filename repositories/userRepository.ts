@@ -1,11 +1,9 @@
 import client from "../src/database.js";
+import { User } from "@prisma/client";
 
-interface User {
-    email: string;
-    password: string;
-}
+export type InsertUserData = Omit<User, "id">;
 
-export async function insert(userData: User) {
+export async function insert(userData: InsertUserData) {
     await client.user.create({
         data: {
             email: userData.email,
