@@ -14,3 +14,23 @@ export async function postSafetyNote(data: SafetyNoteInsertData) {
 
     await safetyNoteRepository.insert({ ...data });
 }
+
+export async function showNotes(userId: number, noteId: number | undefined) {
+    if (noteId) {
+        const note = await safetyNoteRepository.getNotesByIdAndUserId(
+            noteId,
+            userId
+        );
+
+        if (!note)
+            throw {
+                status: 404,
+                message: "Credential not found for this account",
+            };
+
+        return note;
+    }
+
+    const notes = await safetyNoteRepository.getNotesByUserId(userId);
+    return notes;
+}

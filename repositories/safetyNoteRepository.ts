@@ -22,3 +22,24 @@ export async function getNotesByUserIdAndTitle(title: string, userId: number) {
 
     return note;
 }
+
+export async function getNotesByUserId(userId: number) {
+    const notes = await client.safetyNote.findMany({
+        where: {
+            userId,
+        },
+    });
+
+    return notes;
+}
+
+export async function getNotesByIdAndUserId(id: number, userId: number) {
+    const notes = await client.safetyNote.findFirst({
+        where: {
+            userId,
+            id,
+        },
+    });
+
+    return notes;
+}

@@ -8,3 +8,14 @@ export async function postSafetyNote(req: Request, res: Response) {
     await safetyNoteService.postSafetyNote({ title, note, userId: user.id });
     return res.sendStatus(201);
 }
+
+export async function getNotes(req: Request, res: Response) {
+    const { id } = req.query;
+    const { user } = res.locals;
+
+    if (id !== undefined && isNaN(+id))
+        throw { status: 422, message: "id must be a number" };
+
+    const notes = await safetyNoteService.showNotes(user.id, +id);
+    return res.send(notes);
+}

@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { postSafetyNote } from "../controllers/safetyNoteController.js";
+import {
+    getNotes,
+    postSafetyNote,
+} from "../controllers/safetyNoteController.js";
 import schemaValidator from "../middlewares/schemaValidator.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import safetyNoteSchema from "../schemas/safetyNoteSchema.js";
@@ -12,5 +15,6 @@ safetyNoteRouter.post(
     schemaValidator(safetyNoteSchema),
     postSafetyNote
 );
+safetyNoteRouter.get("/safety-notes/show", verifyToken, getNotes);
 
 export default safetyNoteRouter;

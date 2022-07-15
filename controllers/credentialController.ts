@@ -14,7 +14,8 @@ export async function getCredential(req: Request, res: Response) {
     const { user } = res.locals;
     const { id } = req.query;
 
-    if (isNaN(+id)) throw { status: 422, message: "id must be a number" };
+    if (id !== undefined && isNaN(+id))
+        throw { status: 422, message: "id must be a number" };
 
     const credentials = await credentialService.showCredentials(user.id, +id);
     return res.send(credentials);
