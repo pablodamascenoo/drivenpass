@@ -25,3 +25,24 @@ export async function insert(insertCredential: CredentialInsertData) {
         },
     });
 }
+
+export async function getCredentialsByUserId(userId: number) {
+    const credentials = await client.credential.findMany({
+        where: {
+            userId,
+        },
+    });
+
+    return credentials;
+}
+
+export async function getCredentialsByIdAndUserId(id: number, userId: number) {
+    const credentials = await client.credential.findFirst({
+        where: {
+            userId,
+            id,
+        },
+    });
+
+    return credentials;
+}

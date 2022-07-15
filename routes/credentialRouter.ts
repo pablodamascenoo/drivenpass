@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { postCredential } from "../controllers/credentialController.js";
+import {
+    getCredential,
+    postCredential,
+} from "../controllers/credentialController.js";
 import schemaValidator from "../middlewares/schemaValidator.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import credentialsSchema from "../schemas/credentialsSchema.js";
@@ -12,5 +15,6 @@ credentialsRouter.post(
     schemaValidator(credentialsSchema),
     postCredential
 );
+credentialsRouter.get("/credentials/show", verifyToken, getCredential);
 
 export default credentialsRouter;
