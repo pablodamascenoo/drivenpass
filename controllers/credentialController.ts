@@ -19,3 +19,11 @@ export async function getCredential(req: Request, res: Response) {
     const credentials = await credentialService.showCredentials(user.id, +id);
     return res.send(credentials);
 }
+
+export async function deleteCredential(req: Request, res: Response) {
+    const { user } = res.locals;
+    const { id } = req.params;
+
+    await credentialService.deleteCredential(user.id, +id);
+    return res.sendStatus(204);
+}

@@ -49,3 +49,18 @@ export async function showCredentials(
 
     return credentials;
 }
+
+export async function deleteCredential(userId: number, postId: number) {
+    const credential = await credentialRepository.getCredentialsByIdAndUserId(
+        postId,
+        userId
+    );
+
+    if (!credential)
+        throw {
+            status: 404,
+            message: "Credential not found for this account",
+        };
+
+    await credentialRepository.deleteCredential(postId);
+}

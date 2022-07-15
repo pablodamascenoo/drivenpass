@@ -46,3 +46,11 @@ export async function getCredentialsByIdAndUserId(id: number, userId: number) {
 
     return credentials;
 }
+
+export async function deleteCredential(id: number) {
+    await client.credential.delete({
+        where: {
+            id,
+        },
+    });
+}
