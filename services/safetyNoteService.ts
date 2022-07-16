@@ -34,3 +34,18 @@ export async function showNotes(userId: number, noteId: number | undefined) {
     const notes = await safetyNoteRepository.getNotesByUserId(userId);
     return notes;
 }
+
+export async function deleteNote(userId: number, noteId: number) {
+    const note = await safetyNoteRepository.getNotesByIdAndUserId(
+        noteId,
+        userId
+    );
+
+    if (!note)
+        throw {
+            status: 404,
+            message: "Credential not found for this account",
+        };
+
+    await safetyNoteRepository.deleteNote(noteId);
+}

@@ -19,3 +19,11 @@ export async function getNotes(req: Request, res: Response) {
     const notes = await safetyNoteService.showNotes(user.id, +id);
     return res.send(notes);
 }
+
+export async function deleteNote(req: Request, res: Response) {
+    const { id } = req.params;
+    const { user } = res.locals;
+
+    await safetyNoteService.deleteNote(user.id, +id);
+    return res.sendStatus(204);
+}

@@ -43,3 +43,11 @@ export async function getNotesByIdAndUserId(id: number, userId: number) {
 
     return notes;
 }
+
+export async function deleteNote(id: number) {
+    await client.safetyNote.delete({
+        where: {
+            id,
+        },
+    });
+}
