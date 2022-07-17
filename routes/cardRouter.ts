@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getCards, postCard } from "../controllers/cardController.js";
+import {
+    deleteCard,
+    getCards,
+    postCard,
+} from "../controllers/cardController.js";
 import schemaValidator from "../middlewares/schemaValidator.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import cardSchema from "../schemas/cardSchema.js";
@@ -13,5 +17,6 @@ cardRouter.post(
     postCard
 );
 cardRouter.get("/cards/show", verifyToken, getCards);
+cardRouter.delete("/cards/:id/delete", verifyToken, deleteCard);
 
 export default cardRouter;

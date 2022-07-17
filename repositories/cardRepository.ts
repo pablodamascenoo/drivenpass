@@ -40,3 +40,11 @@ export async function getCardByIdAndUserId(id: number, userId: number) {
 
     return card;
 }
+
+export async function deleteCard(id: number) {
+    await client.card.delete({
+        where: {
+            id,
+        },
+    });
+}

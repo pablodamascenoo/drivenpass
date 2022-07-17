@@ -20,3 +20,11 @@ export async function getCards(req: Request, res: Response) {
     const cards = await cardService.showCards(user.id, +id);
     return res.send(cards);
 }
+
+export async function deleteCard(req: Request, res: Response) {
+    const { user } = res.locals;
+    const { id } = req.params;
+
+    await cardService.deleteCard(user.id, +id);
+    return res.sendStatus(204);
+}
