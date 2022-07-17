@@ -30,3 +30,11 @@ export async function getWifiByIdAndUserId(id: number, userId: number) {
 
     return wifi;
 }
+
+export async function deleteWifi(id: number) {
+    await client.wifi.delete({
+        where: {
+            id,
+        },
+    });
+}

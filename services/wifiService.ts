@@ -28,3 +28,13 @@ export async function showWifi(userId: number, wifiId: number | undefined) {
 
     return wifis;
 }
+
+export async function deletewifi(userId: number, wifiId: number) {
+    const wifi = await wifiRepository.getWifiByIdAndUserId(wifiId, userId);
+    if (!wifi)
+        throw {
+            status: 404,
+            message: "wifi not found for this account",
+        };
+    await wifiRepository.deleteWifi(wifiId);
+}
