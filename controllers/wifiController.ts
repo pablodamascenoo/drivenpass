@@ -8,3 +8,14 @@ export async function postWifi(req: Request, res: Response) {
     await wifiService.createWifi(wifiData, user.id);
     return res.sendStatus(201);
 }
+
+export async function getWifis(req: Request, res: Response) {
+    const { user } = res.locals;
+    const { id } = req.query;
+
+    if (id !== undefined && isNaN(+id))
+        throw { status: 422, message: "id must be a number" };
+
+    const wifis = await wifiService.showWifi(user.id, +id);
+    return res.send(wifis);
+}

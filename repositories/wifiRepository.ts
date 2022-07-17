@@ -9,3 +9,24 @@ export async function insert(wifiData: WifiInsertData) {
         data: { ...wifiData },
     });
 }
+
+export async function getWifiByUserId(userId: number) {
+    const wifi = await client.wifi.findMany({
+        where: {
+            userId,
+        },
+    });
+
+    return wifi;
+}
+
+export async function getWifiByIdAndUserId(id: number, userId: number) {
+    const wifi = await client.wifi.findFirst({
+        where: {
+            userId,
+            id,
+        },
+    });
+
+    return wifi;
+}
