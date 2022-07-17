@@ -19,3 +19,24 @@ export async function findCardByNameAndUserId(name: string, userId: number) {
     });
     return card;
 }
+
+export async function getCardsByUserId(userId: number) {
+    const cards = await client.card.findMany({
+        where: {
+            userId,
+        },
+    });
+
+    return cards;
+}
+
+export async function getCardByIdAndUserId(id: number, userId: number) {
+    const card = await client.card.findFirst({
+        where: {
+            userId,
+            id,
+        },
+    });
+
+    return card;
+}

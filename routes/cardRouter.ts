@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postCard } from "../controllers/cardController.js";
+import { getCards, postCard } from "../controllers/cardController.js";
 import schemaValidator from "../middlewares/schemaValidator.js";
 import verifyToken from "../middlewares/verifyToken.js";
 import cardSchema from "../schemas/cardSchema.js";
@@ -12,5 +12,6 @@ cardRouter.post(
     schemaValidator(cardSchema),
     postCard
 );
+cardRouter.get("/cards/show", verifyToken, getCards);
 
 export default cardRouter;

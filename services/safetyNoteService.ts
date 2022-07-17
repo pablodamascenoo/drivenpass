@@ -25,7 +25,7 @@ export async function showNotes(userId: number, noteId: number | undefined) {
         if (!note)
             throw {
                 status: 404,
-                message: "Credential not found for this account",
+                message: "Note not found for this account",
             };
 
         return note;
@@ -44,7 +44,7 @@ export async function deleteNote(userId: number, noteId: number) {
     if (!note)
         throw {
             status: 404,
-            message: "Credential not found for this account",
+            message: "Note not found for this account",
         };
 
     await safetyNoteRepository.deleteNote(noteId);
