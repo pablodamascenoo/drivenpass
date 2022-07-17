@@ -42,6 +42,7 @@ model Wifi {
   userId Int
   title String
   name String
+  password String
 
   @@map("wifis")
 }
